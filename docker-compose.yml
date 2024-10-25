@@ -10,6 +10,8 @@ services:
     volumes:
       - ./public:/var/www/app/public
       - ./docker/app/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
   php:
     build:
       context: docker/app/php
@@ -20,7 +22,6 @@ services:
         USERNAME: ${USERNAME:-www-data}
     tty: true
     depends_on:
-      - nginx
       - postgres
     networks:
       - task
