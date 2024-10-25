@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Questionnaire\Domain\Entity\Action" table="action">
+        <id name="id" type="uuid" unique="true">
+            <generator strategy="NONE" />
+        </id>
+        <field name="type" type="string" enum-type="Questionnaire\Domain\Entity\ActionType"/>
+        <field name="products" type="json" nullable="true" />
+        <field name="createdAt" type="datetime_immutable" />
+        <field name="updatedAt" type="datetime_immutable" nullable="true"/>
+
+        <many-to-one field="answer" target-entity="Questionnaire\Domain\Entity\Answer" inversedBy="actions"/>
+        <many-to-one field="question" target-entity="Questionnaire\Domain\Entity\Question" inversedBy="questions"/>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Questionnaire\Domain\Entity\Question" table="question">
+        <id name="id" type="uuid" unique="true">
+            <generator strategy="NONE" />
+        </id>
+        <field name="value" type="text"/>
+        <field name="priority" type="integer"/>
+
+        <field name="createdAt" type="datetime_immutable" />
+        <field name="updatedAt" type="datetime_immutable" nullable="true"/>
+
+        <many-to-one field="parent" target-entity="Questionnaire\Domain\Entity\Question" inversedBy="children">
+            <join-column name="parent_id" referenced-column-name="id" nullabe="true"/>
+        </many-to-one>
+        <one-to-many field="children" target-entity="Questionnaire\Domain\Entity\Question" mapped-by="parent">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="questionnaire" target-entity="Questionnaire\Domain\Entity\Questionnaire" inversedBy="questions"/>
+        <one-to-many field="answers" target-entity="Questionnaire\Domain\Entity\Answer" mapped-by="question">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

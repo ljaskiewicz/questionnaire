@@ -1,0 +1,12 @@
+includes:
+	- phpstan-baseline.neon
+
+parameters:
+    level: max
+    checkUninitializedProperties: true
+    ignoreErrors:
+        -
+            message: '#Property [a-zA-Z0-9\\]+::\$[a-zA-Z0-9]+ is never read, only written.#'
+            path: src/*/Domain/Entity/*
+    paths:
+        - src

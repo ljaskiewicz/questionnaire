@@ -1,0 +1,26 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Questionnaire\:
+        resource: '../../src/Questionnaire/'
+        exclude: '../../src/Questionnaire/Entrypoint/Http/{DTO}'
+
+    Questionnaire\Entrypoint\Http\Controller\:
+        resource: '../../src/Questionnaire/Entrypoint/Http/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Questionnaire\Application\Command\CompleteQuestionnaire\CompleteQuestionnaireHandler:
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+
+    Questionnaire\Application\Query\GetQuestionnaire\GetQuestionnaireHandler:
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+
+    Questionnaire\Application\Query\GetUserQuestionnaire\GetUserQuestionnaireHandler:
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }

@@ -1,0 +1,3 @@
+controllers:
+  resource: ../../../src/Questionnaire/Entrypoint/Http/Controller/
+  type: attribute
